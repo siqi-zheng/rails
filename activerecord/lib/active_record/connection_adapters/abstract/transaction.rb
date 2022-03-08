@@ -142,7 +142,10 @@ module ActiveRecord
       end
 
       def restore!
-        @materialized = false
+        if materialized?
+          @materialized = false
+          materialize!
+        end
       end
 
       def rollback_records
@@ -359,8 +362,6 @@ module ActiveRecord
         return false unless restorable?
 
         @stack.each(&:restore!)
-
-        materialize_transactions unless @lazy_transactions_enabled
 
         true
       end
