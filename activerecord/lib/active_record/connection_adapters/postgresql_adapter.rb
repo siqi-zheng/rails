@@ -681,6 +681,8 @@ module ActiveRecord
           when nil
             if exception.message.match?(/connection is closed/i)
               ConnectionNotEstablished.new(exception)
+            elsif exception.is_a?(PG::ConnectionBad) && !exception.message.end_with?("\n")
+              ConnectionNotEstablished.new(exception)
             else
               super
             end
@@ -709,7 +711,10 @@ module ActiveRecord
           end
         end
 
-        def retryable_error?(exception)
+        def retryable_query_error?(exception)
+        end
+
+        def retryable_connection_error?(exception)
           case exception
           when PG::ConnectionBad; !exception.message.end_with?("\n")
           end
