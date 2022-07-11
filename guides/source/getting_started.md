@@ -144,6 +144,11 @@ working on a particular task. One of these is the new application generator,
 which will provide you with the foundation of a fresh Rails application so that
 you don't have to write it yourself.
 
+TIP: Before using the generator, please ensure that git is installed. To verify that 
+you have git installed correctly, you can run `git --version` in a new terminal, which
+should return its version. Otherwise, files and folders may not be
+created in the blog folder.
+
 To use this generator, open a terminal, navigate to a directory where you have
 rights to create files, and run:
 
